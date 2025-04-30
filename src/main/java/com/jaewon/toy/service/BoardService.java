@@ -55,11 +55,10 @@ public class BoardService {
                             long count = tuple.getT2();
                             return Mono.zip(categoryService.findNameById(board.getCategoryId()),
                                     userService.findNicknameById(board.getUserId()))
-                                    .map(tup -> {
+                                    .flatMap(tup -> {
                                         String category = tup.getT1();
                                         String nickname = tup.getT2();
-
-                                        return BoardDetailResponseDto.builder()
+                                        BoardDetailResponseDto result = BoardDetailResponseDto.builder()
                                                 .id(board.getId())
                                                 .likeCount(count)
                                                 .writer(nickname)
@@ -69,6 +68,9 @@ public class BoardService {
                                                 .title(board.getTitle())
                                                 .category(category)
                                                 .build();
+                                        board.increaseCnt();
+                                        return boardRepository.save(board)
+                                                .thenReturn(result);
                                     });
                         })
                 .as(operator::transactional);

@@ -34,4 +34,8 @@ public class Board {
         this.userId = userId;
         this.categoryId = categoryId;
     }
+
+    public void increaseCnt() {
+        this.cnt++;
+    }
 }
