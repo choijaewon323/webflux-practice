@@ -1,0 +1,13 @@
+spring:
+  data:
+    r2dbc:
+      postgresql:
+        driver: postgresql
+        host: 127.0.0.1
+        port: 5432
+        user: postgres
+        password: qetr0265
+        database: postgres
+logging:
+  level:
+    org.springframework.r2dbc: DEBUG
