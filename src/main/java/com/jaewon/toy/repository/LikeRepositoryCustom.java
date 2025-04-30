@@ -1,6 +1,6 @@
 package com.jaewon.toy.repository;
 
-import com.jaewon.toy.domain.LikeType;
+import com.jaewon.toy.domain.like.LikeType;
 import reactor.core.publisher.Mono;
 
 public interface LikeRepositoryCustom {

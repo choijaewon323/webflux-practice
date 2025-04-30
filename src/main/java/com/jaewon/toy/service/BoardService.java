@@ -1,10 +1,10 @@
 package com.jaewon.toy.service;
 
-import com.jaewon.toy.domain.Board;
-import com.jaewon.toy.domain.LikeType;
-import com.jaewon.toy.domain.dto.BoardDetailResponseDto;
-import com.jaewon.toy.domain.dto.BoardListResponseDto;
-import com.jaewon.toy.domain.dto.BoardSaveRequestDto;
+import com.jaewon.toy.domain.board.Board;
+import com.jaewon.toy.domain.like.LikeType;
+import com.jaewon.toy.domain.board.dto.BoardDetailResponseDto;
+import com.jaewon.toy.domain.board.dto.BoardListResponseDto;
+import com.jaewon.toy.domain.board.dto.BoardSaveRequestDto;
 import com.jaewon.toy.repository.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

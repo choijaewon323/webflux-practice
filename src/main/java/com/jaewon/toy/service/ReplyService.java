@@ -1,7 +1,7 @@
 package com.jaewon.toy.service;
 
-import com.jaewon.toy.domain.Reply;
-import com.jaewon.toy.domain.dto.ReplySaveRequestDto;
+import com.jaewon.toy.domain.reply.Reply;
+import com.jaewon.toy.domain.reply.dto.ReplySaveRequestDto;
 import com.jaewon.toy.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

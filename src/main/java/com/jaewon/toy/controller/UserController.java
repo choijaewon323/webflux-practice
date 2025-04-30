@@ -1,7 +1,7 @@
 package com.jaewon.toy.controller;
 
-import com.jaewon.toy.domain.dto.UserListResponseDto;
-import com.jaewon.toy.domain.dto.UserSaveRequestDto;
+import com.jaewon.toy.domain.user.dto.UserListResponseDto;
+import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.service.UserDeleteService;
 import com.jaewon.toy.service.UserService;
 import lombok.RequiredArgsConstructor;

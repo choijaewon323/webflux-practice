@@ -1,8 +1,8 @@
 package com.jaewon.toy.controller;
 
-import com.jaewon.toy.domain.dto.BoardDetailResponseDto;
-import com.jaewon.toy.domain.dto.BoardListResponseDto;
-import com.jaewon.toy.domain.dto.BoardSaveRequestDto;
+import com.jaewon.toy.domain.board.dto.BoardDetailResponseDto;
+import com.jaewon.toy.domain.board.dto.BoardListResponseDto;
+import com.jaewon.toy.domain.board.dto.BoardSaveRequestDto;
 import com.jaewon.toy.service.BoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

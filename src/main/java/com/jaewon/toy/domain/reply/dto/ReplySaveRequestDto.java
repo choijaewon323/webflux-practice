@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain.dto;
+package com.jaewon.toy.domain.reply.dto;
 
 import lombok.*;
 

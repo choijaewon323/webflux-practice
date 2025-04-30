@@ -1,6 +1,6 @@
 package com.jaewon.toy.controller;
 
-import com.jaewon.toy.domain.dto.LikeSaveRequestDto;
+import com.jaewon.toy.domain.like.dto.LikeSaveRequestDto;
 import com.jaewon.toy.service.LikeService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

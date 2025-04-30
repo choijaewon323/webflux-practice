@@ -1,6 +1,6 @@
 package com.jaewon.toy.repository;
 
-import com.jaewon.toy.domain.Reply;
+import com.jaewon.toy.domain.reply.Reply;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;
 import reactor.core.publisher.Mono;
 

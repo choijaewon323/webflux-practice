@@ -1,8 +1,8 @@
 package com.jaewon.toy.service;
 
-import com.jaewon.toy.domain.Category;
-import com.jaewon.toy.domain.dto.CategoryListResponseDto;
-import com.jaewon.toy.domain.dto.CategorySaveRequestDto;
+import com.jaewon.toy.domain.category.Category;
+import com.jaewon.toy.domain.category.dto.CategoryListResponseDto;
+import com.jaewon.toy.domain.category.dto.CategorySaveRequestDto;
 import com.jaewon.toy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

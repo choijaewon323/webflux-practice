@@ -1,6 +1,6 @@
 package com.jaewon.toy.controller;
 
-import com.jaewon.toy.domain.dto.ReplySaveRequestDto;
+import com.jaewon.toy.domain.reply.dto.ReplySaveRequestDto;
 import com.jaewon.toy.service.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

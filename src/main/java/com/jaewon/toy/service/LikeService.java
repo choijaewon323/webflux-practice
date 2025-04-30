@@ -1,7 +1,7 @@
 package com.jaewon.toy.service;
 
-import com.jaewon.toy.domain.Like;
-import com.jaewon.toy.domain.LikeType;
+import com.jaewon.toy.domain.like.Like;
+import com.jaewon.toy.domain.like.LikeType;
 import com.jaewon.toy.repository.LikeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

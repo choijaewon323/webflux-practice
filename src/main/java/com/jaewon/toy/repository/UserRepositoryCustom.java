@@ -1,6 +1,6 @@
 package com.jaewon.toy.repository;
 
-import com.jaewon.toy.domain.dto.UserRequiredResponseDto;
+import com.jaewon.toy.domain.user.dto.UserRequiredResponseDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 

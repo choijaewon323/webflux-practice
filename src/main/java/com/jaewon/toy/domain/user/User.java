@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain;
+package com.jaewon.toy.domain.user;
 
 import lombok.AccessLevel;
 import lombok.Builder;

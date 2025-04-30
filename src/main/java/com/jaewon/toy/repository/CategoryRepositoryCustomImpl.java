@@ -1,6 +1,6 @@
 package com.jaewon.toy.repository;
 
-import com.jaewon.toy.domain.dto.CategoryListResponseDto;
+import com.jaewon.toy.domain.category.dto.CategoryListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.r2dbc.convert.MappingR2dbcConverter;
 import org.springframework.r2dbc.core.DatabaseClient;

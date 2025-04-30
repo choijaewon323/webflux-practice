@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain;
+package com.jaewon.toy.domain.category;
 
 import lombok.AccessLevel;
 import lombok.Builder;

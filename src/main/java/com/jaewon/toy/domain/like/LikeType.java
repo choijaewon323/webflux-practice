@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain;
+package com.jaewon.toy.domain.like;
 
 import lombok.Getter;
 

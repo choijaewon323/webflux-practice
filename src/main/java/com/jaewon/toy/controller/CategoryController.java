@@ -1,7 +1,7 @@
 package com.jaewon.toy.controller;
 
-import com.jaewon.toy.domain.dto.CategoryListResponseDto;
-import com.jaewon.toy.domain.dto.CategorySaveRequestDto;
+import com.jaewon.toy.domain.category.dto.CategoryListResponseDto;
+import com.jaewon.toy.domain.category.dto.CategorySaveRequestDto;
 import com.jaewon.toy.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

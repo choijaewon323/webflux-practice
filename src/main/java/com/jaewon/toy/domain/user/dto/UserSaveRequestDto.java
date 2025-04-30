@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain.dto;
+package com.jaewon.toy.domain.user.dto;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
