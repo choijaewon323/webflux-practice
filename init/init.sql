@@ -9,7 +9,6 @@ create table boards (
     title varchar,
     content varchar,
     user_id bigint,
-    like_count bigint,
     category_id bigint,
     cnt bigint,
     created_at timestamp,
