@@ -1,11 +1,14 @@
 package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.Category;
+import com.jaewon.toy.domain.dto.CategoryListResponseDto;
 import com.jaewon.toy.domain.dto.CategorySaveRequestDto;
 import com.jaewon.toy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
+
+import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -28,5 +31,10 @@ public class CategoryService {
     public Mono<String> findNameById(long categoryId) {
         return categoryRepository.findById(categoryId)
                 .map(Category::getName);
+    }
+
+    public Mono<List<CategoryListResponseDto>> getAllList() {
+        return categoryRepository.getAll()
+                .collectList();
     }
 }
