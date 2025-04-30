@@ -17,12 +17,14 @@ public class ReplyController {
     @PostMapping("/{boardId}")
     public Mono<Boolean> save(@PathVariable Long boardId, @RequestBody ReplySaveRequestDto request) {
         return replyService.save(boardId, request)
+                .doOnError(throwable -> log.error(String.valueOf(throwable)))
                 .onErrorReturn(false);
     }
 
     @DeleteMapping("/{replyId}")
     public Mono<Boolean> deleteById(@PathVariable Long replyId) {
         return replyService.deleteById(replyId)
+                .doOnError(throwable -> log.error(String.valueOf(throwable)))
                 .onErrorReturn(false);
     }
 }
