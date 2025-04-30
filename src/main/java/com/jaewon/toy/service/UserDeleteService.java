@@ -14,9 +14,10 @@ public class UserDeleteService {
     private final LikeService likeService;
     private final TransactionalOperator operator;
 
-    public Mono<Boolean> deleteByNickname(String nickname) {
-        return userService.findByNickname(nickname)
-                .flatMap(userId -> Mono.zip(boardService.deleteByUserId(userId),
+    public Mono<Boolean> deleteByEmail(String email) {
+        return userService.findByEmail(email)
+                .flatMap(userId -> Mono.zip(userService.deleteByUserId(userId),
+                        boardService.deleteByUserId(userId),
                         replyService.deleteByUserId(userId),
                         likeService.deleteByUserId(userId)))
                 .thenReturn(true)

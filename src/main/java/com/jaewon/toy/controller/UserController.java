@@ -23,9 +23,10 @@ public class UserController {
                 .onErrorReturn(false);
     }
 
-    @DeleteMapping("/{nickname}")
-    public Mono<Boolean> delete(@PathVariable String nickname) {
-        return userDeleteService.deleteByNickname(nickname)
+    @DeleteMapping("/{email}")
+    public Mono<Boolean> delete(@PathVariable String email) {
+        return userDeleteService.deleteByEmail(email)
+                .doOnError(throwable -> log.error(String.valueOf(throwable)))
                 .onErrorReturn(false);
     }
 }
