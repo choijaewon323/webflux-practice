@@ -1,5 +1,7 @@
 package com.jaewon.toy.service;
 
+import com.jaewon.toy.domain.Category;
+import com.jaewon.toy.domain.dto.CategorySaveRequestDto;
 import com.jaewon.toy.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -10,13 +12,21 @@ import reactor.core.publisher.Mono;
 public class CategoryService {
     private final CategoryRepository categoryRepository;
 
+    public Mono<Boolean> save(CategorySaveRequestDto request) {
+        return categoryRepository.save(Category.builder()
+                .name(request.getName())
+                .build())
+                .thenReturn(true);
+    }
+
     public Mono<Long> findByName(String category) {
-        return categoryRepository.findByName(category)
-                .flatMap(id -> {
-                    if (id == null) {
-                        return Mono.error(new RuntimeException("해당 카테고리가 없음"));
-                    }
-                    return Mono.just(id);
-                });
+        return categoryRepository.findIdByName(category)
+                .switchIfEmpty(Mono.error(new RuntimeException("해당 카테고리가 없음")))
+                .flatMap(Mono::just);
+    }
+
+    public Mono<String> findNameById(long categoryId) {
+        return categoryRepository.findById(categoryId)
+                .map(Category::getName);
     }
 }
