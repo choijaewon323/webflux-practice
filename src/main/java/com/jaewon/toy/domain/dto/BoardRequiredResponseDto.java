@@ -1,14 +1,14 @@
 package com.jaewon.toy.domain.dto;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
 @Setter
 @Getter
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class BoardRequiredResponseDto {
     private long id;
     private String category;

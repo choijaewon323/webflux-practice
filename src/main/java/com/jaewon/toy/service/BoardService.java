@@ -33,7 +33,6 @@ public class BoardService {
                     return boardRepository.save(Board.builder()
                             .title(request.getTitle())
                             .content(request.getContent())
-                            .likeCount(0)
                             .userId(userId)
                             .categoryId(categoryId)
                             .build());
@@ -48,12 +47,31 @@ public class BoardService {
                 .map(res -> true);
     }
 
-    public Mono<Boolean> deleteAllByUserId(long userId) {
-    }
-
     public Mono<BoardDetailResponseDto> getOne(long boardId) {
-        return boardRepository.findById(boardId)
-                .map(BoardDetailResponseDto::toDto);
+        return Mono.zip(boardRepository.findById(boardId),
+                        likeService.countByBoardId(boardId))
+                        .flatMap(tuple -> {
+                            Board board = tuple.getT1();
+                            long count = tuple.getT2();
+                            return Mono.zip(categoryService.findNameById(board.getCategoryId()),
+                                    userService.findNicknameById(board.getUserId()))
+                                    .map(tup -> {
+                                        String category = tup.getT1();
+                                        String nickname = tup.getT2();
+
+                                        return BoardDetailResponseDto.builder()
+                                                .id(board.getId())
+                                                .likeCount(count)
+                                                .writer(nickname)
+                                                .content(board.getContent())
+                                                .updatedAt(board.getUpdatedAt())
+                                                .createdAt(board.getCreatedAt())
+                                                .title(board.getTitle())
+                                                .category(category)
+                                                .build();
+                                    });
+                        })
+                .as(operator::transactional);
     }
 
     public Mono<BoardListResponseDto> getAll() {
@@ -63,5 +81,10 @@ public class BoardService {
                         .count(list.size())
                         .boardList(list)
                         .build());
+    }
+
+    public Mono<Boolean> deleteByUserId(long userId) {
+        return boardRepository.deleteByUserId(userId)
+                .thenReturn(true);
     }
 }
