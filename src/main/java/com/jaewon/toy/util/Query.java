@@ -1,6 +1,10 @@
 package com.jaewon.toy.util;
 
-public class Query {
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+public final class Query {
     public static QueryBuilder builder() {
         return new QueryBuilder();
     }
@@ -103,22 +107,9 @@ public class Query {
             return this;
         }
 
-        public QueryBuilder orderBy() {
-            sb.append("ORDER BY");
-            sb.append(" ");
-            return this;
-        }
-
-        public QueryBuilder asc(String column) {
-            sb.append(column);
-            sb.append("ASC");
-            sb.append(" ");
-            return this;
-        }
-
-        public QueryBuilder desc(String column) {
-            sb.append(column);
-            sb.append("DESC");
+        public QueryBuilder orderBy(String columns) {
+            sb.append("ORDER BY ");
+            sb.append(columns);
             sb.append(" ");
             return this;
         }
@@ -126,16 +117,5 @@ public class Query {
         public String build() {
             return sb.toString().trim();
         }
-    }
-
-    public static void main(String[] args) {
-        String build = Query.builder()
-                .select("id")
-                .from("boards as b")
-                .innerJoin("categories as c")
-                .on("c.id = b.id")
-                .build();
-
-        System.out.println(build);
     }
 }
