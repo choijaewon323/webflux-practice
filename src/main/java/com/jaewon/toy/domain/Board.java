@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.time.LocalDateTime;
@@ -20,19 +21,17 @@ public class Board {
     private String content;
     private long userId;
     private long categoryId;
-    private long likeCount;
     private long cnt;
     @CreatedDate
     private LocalDateTime createdAt;
+    @LastModifiedDate
     private LocalDateTime updatedAt;
 
     @Builder
-    public Board(String title, String content, long userId, long categoryId, long likeCount) {
+    public Board(String title, String content, long userId, long categoryId) {
         this.title = title;
         this.content = content;
         this.userId = userId;
         this.categoryId = categoryId;
-        this.likeCount = likeCount;
-        this.updatedAt = LocalDateTime.now();
     }
 }
