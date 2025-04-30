@@ -1,5 +1,6 @@
 package com.jaewon.toy.controller;
 
+import com.jaewon.toy.domain.dto.UserListResponseDto;
 import com.jaewon.toy.domain.dto.UserSaveRequestDto;
 import com.jaewon.toy.service.UserDeleteService;
 import com.jaewon.toy.service.UserService;
@@ -28,5 +29,11 @@ public class UserController {
         return userDeleteService.deleteByEmail(email)
                 .doOnError(throwable -> log.error(String.valueOf(throwable)))
                 .onErrorReturn(false);
+    }
+
+    @GetMapping("/all")
+    public Mono<UserListResponseDto> getAll() {
+        return userService.getAll()
+                .doOnError(throwable -> log.error(String.valueOf(throwable)));
     }
 }

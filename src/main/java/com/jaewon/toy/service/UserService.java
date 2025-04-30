@@ -1,6 +1,7 @@
 package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.User;
+import com.jaewon.toy.domain.dto.UserListResponseDto;
 import com.jaewon.toy.domain.dto.UserSaveRequestDto;
 import com.jaewon.toy.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -30,16 +31,30 @@ public class UserService {
     }
 
     public Mono<Boolean> save(UserSaveRequestDto request) {
-        return userRepository.save(User.builder()
-                .email(request.getEmail())
-                .nickname(request.getNickname())
-                .password(request.getPassword())
-                .build())
+        return userRepository.findIdByEmail(request.getEmail())
+                .flatMap(id -> Mono.error(new RuntimeException("이미 존재하는 이메일입니다")))
+                .switchIfEmpty(userRepository.save(User.builder()
+                                .email(request.getEmail())
+                                .nickname(request.getNickname())
+                                .password(request.getPassword())
+                                .build()))
                 .thenReturn(true);
     }
 
     public Mono<Boolean> deleteByUserId(long userId) {
         return userRepository.deleteById(userId)
                 .thenReturn(true);
+    }
+
+    public Mono<UserListResponseDto> getAll() {
+        return userRepository.getAllUsersRequiredColumn()
+                .collectList()
+                .map(list -> {
+                    int count = list.size();
+                    return UserListResponseDto.builder()
+                            .count(count)
+                            .users(list)
+                            .build();
+                });
     }
 }
