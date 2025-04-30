@@ -5,7 +5,7 @@ import com.jaewon.toy.domain.like.LikeType;
 import com.jaewon.toy.domain.board.dto.BoardDetailResponseDto;
 import com.jaewon.toy.domain.board.dto.BoardListResponseDto;
 import com.jaewon.toy.domain.board.dto.BoardSaveRequestDto;
-import com.jaewon.toy.repository.BoardRepository;
+import com.jaewon.toy.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

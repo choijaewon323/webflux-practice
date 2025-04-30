@@ -3,7 +3,7 @@ package com.jaewon.toy.service;
 import com.jaewon.toy.domain.user.User;
 import com.jaewon.toy.domain.user.dto.UserListResponseDto;
 import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
-import com.jaewon.toy.repository.UserRepository;
+import com.jaewon.toy.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;

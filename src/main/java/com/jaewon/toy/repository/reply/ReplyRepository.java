@@ -1,4 +1,4 @@
-package com.jaewon.toy.repository;
+package com.jaewon.toy.repository.reply;
 
 import com.jaewon.toy.domain.reply.Reply;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

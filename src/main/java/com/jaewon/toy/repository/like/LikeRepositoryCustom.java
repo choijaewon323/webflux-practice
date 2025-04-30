@@ -1,4 +1,4 @@
-package com.jaewon.toy.repository;
+package com.jaewon.toy.repository.like;
 
 import com.jaewon.toy.domain.like.LikeType;
 import reactor.core.publisher.Mono;

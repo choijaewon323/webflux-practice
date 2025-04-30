@@ -2,7 +2,7 @@ package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.reply.Reply;
 import com.jaewon.toy.domain.reply.dto.ReplySaveRequestDto;
-import com.jaewon.toy.repository.ReplyRepository;
+import com.jaewon.toy.repository.reply.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.reactive.TransactionalOperator;

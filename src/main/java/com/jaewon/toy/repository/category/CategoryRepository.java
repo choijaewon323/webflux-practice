@@ -1,4 +1,4 @@
-package com.jaewon.toy.repository;
+package com.jaewon.toy.repository.category;
 
 import com.jaewon.toy.domain.category.Category;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

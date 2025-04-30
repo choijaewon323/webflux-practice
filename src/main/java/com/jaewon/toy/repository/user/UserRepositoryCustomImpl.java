@@ -1,4 +1,4 @@
-package com.jaewon.toy.repository;
+package com.jaewon.toy.repository.user;
 
 import com.jaewon.toy.domain.user.dto.UserRequiredResponseDto;
 import lombok.RequiredArgsConstructor;

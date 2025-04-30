@@ -1,4 +1,4 @@
-package com.jaewon.toy.repository;
+package com.jaewon.toy.repository.board;
 
 import com.jaewon.toy.domain.board.dto.BoardRequiredResponseDto;
 import reactor.core.publisher.Flux;
