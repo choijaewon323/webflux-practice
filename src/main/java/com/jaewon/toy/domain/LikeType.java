@@ -1,5 +1,8 @@
 package com.jaewon.toy.domain;
 
+import lombok.Getter;
+
+@Getter
 public enum LikeType {
     BOARD("board"),
     REPLY("reply")
@@ -8,9 +11,5 @@ public enum LikeType {
 
     LikeType(String type) {
         this.type = type;
-    }
-
-    public String getType() {
-        return type;
     }
 }
