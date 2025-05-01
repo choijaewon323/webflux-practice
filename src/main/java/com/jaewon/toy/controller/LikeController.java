@@ -16,29 +16,21 @@ public class LikeController {
 
     @PostMapping("/board")
     public Mono<Boolean> likeBoard(@RequestBody LikeSaveRequestDto request) {
-        return likeService.likeBoard(request.getTargetId(), request.getNickname())
-                .doOnError(throwable -> log.error(String.valueOf(throwable)))
-                .onErrorReturn(false);
+        return likeService.likeBoard(request.getTargetId(), request.getNickname());
     }
 
     @PostMapping("/reply")
     public Mono<Boolean> likeReply(@RequestBody LikeSaveRequestDto request) {
-        return likeService.likeReply(request.getTargetId(), request.getNickname())
-                .doOnError(throwable -> log.error(String.valueOf(throwable)))
-                .onErrorReturn(false);
+        return likeService.likeReply(request.getTargetId(), request.getNickname());
     }
 
     @DeleteMapping("/board/{boardId}/{nickname}")
     public Mono<Boolean> dislikeBoard(@PathVariable Long boardId, @PathVariable String nickname) {
-        return likeService.dislikeBoard(boardId, nickname)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)))
-                .onErrorReturn(false);
+        return likeService.dislikeBoard(boardId, nickname);
     }
 
     @DeleteMapping("/reply/{replyId}/{nickname}")
     public Mono<Boolean> dislikeReply(@PathVariable Long replyId, @PathVariable String nickname) {
-        return likeService.dislikeReply(replyId, nickname)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)))
-                .onErrorReturn(false);
+        return likeService.dislikeReply(replyId, nickname);
     }
 }

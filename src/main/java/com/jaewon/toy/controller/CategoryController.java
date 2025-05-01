@@ -19,14 +19,11 @@ public class CategoryController {
 
     @PostMapping
     public Mono<Boolean> save(@RequestBody CategorySaveRequestDto request) {
-        return categoryService.save(request)
-                .doOnError(throwable -> log.error("failed to save category name : {}. reason : ", request.getName(), throwable))
-                .onErrorReturn(false);
+        return categoryService.save(request);
     }
 
     @GetMapping("/all")
     public Mono<List<CategoryListResponseDto>> getAllList() {
-        return categoryService.getAllList()
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+        return categoryService.getAllList();
     }
 }
