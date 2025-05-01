@@ -35,4 +35,9 @@ public class ReplyService {
         return replyRepository.deleteByUserId(userId)
                 .thenReturn(true);
     }
+
+    public Mono<Boolean> deleteByBoardId(long boardId) {
+        return replyRepository.deleteByBoardId(boardId)
+                .thenReturn(true);
+    }
 }

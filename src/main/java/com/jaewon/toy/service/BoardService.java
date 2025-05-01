@@ -1,10 +1,10 @@
 package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.board.Board;
-import com.jaewon.toy.domain.like.LikeType;
 import com.jaewon.toy.domain.board.dto.BoardDetailResponseDto;
 import com.jaewon.toy.domain.board.dto.BoardListResponseDto;
 import com.jaewon.toy.domain.board.dto.BoardSaveRequestDto;
+import com.jaewon.toy.domain.like.LikeType;
 import com.jaewon.toy.repository.board.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +22,7 @@ public class BoardService {
     private final LikeService likeService;
     private final UserService userService;
     private final CategoryService categoryService;
+    private final ReplyService replyService;
     private final TransactionalOperator operator;
 
     public Mono<Boolean> save(BoardSaveRequestDto request) {
@@ -42,9 +43,11 @@ public class BoardService {
     }
 
     public Mono<Boolean> deleteOne(long boardId) {
-        return Mono.zip(boardRepository.deleteById(boardId), likeService.deleteAllByType(LikeType.BOARD, boardId))
-                .doOnError(throwable -> log.error("failed to delete board id : {}, reason : ", boardId, throwable))
-                .map(res -> true);
+        return Mono.zip(boardRepository.deleteById(boardId),
+                        likeService.deleteAllByType(LikeType.BOARD, boardId),
+                        replyService.deleteByBoardId(boardId))
+                .map(res -> true)
+                .as(operator::transactional);
     }
 
     public Mono<BoardDetailResponseDto> getOne(long boardId) {
@@ -88,5 +91,14 @@ public class BoardService {
     public Mono<Boolean> deleteByUserId(long userId) {
         return boardRepository.deleteByUserId(userId)
                 .thenReturn(true);
+    }
+
+    public Mono<BoardListResponseDto> getAllByCategoryId(long categoryId) {
+        return boardRepository.findAllByCategoryIdRequiredColumn(categoryId)
+                .collectList()
+                .map(list -> BoardListResponseDto.builder()
+                        .count(list.size())
+                        .boardList(list)
+                        .build());
     }
 }

@@ -6,4 +6,5 @@ import reactor.core.publisher.Mono;
 
 public interface ReplyRepository extends ReactiveCrudRepository<Reply, Long> {
     Mono<Void> deleteByUserId(long userId);
+    Mono<Void> deleteByBoardId(long boardId);
 }
