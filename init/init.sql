@@ -3,6 +3,7 @@ drop table if exists categories;
 drop table if exists likes;
 drop table if exists users;
 drop table if exists replies;
+drop table if exists logs;
 
 create table boards (
     id serial primary key,
@@ -42,4 +43,10 @@ create table replies (
     content varchar,
     created_at timestamp,
     updated_at timestamp
+);
+
+create table logs (
+    id serial primary key,
+    exception_message varchar,
+    created_at timestamp
 );
