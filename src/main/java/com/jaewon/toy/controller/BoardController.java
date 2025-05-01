@@ -18,25 +18,26 @@ public class BoardController {
 
     @GetMapping("/{boardId}")
     public Mono<BoardDetailResponseDto> getOne(@PathVariable Long boardId) {
-        return boardService.getOne(boardId)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+        return boardService.getOne(boardId);
     }
 
     @GetMapping
     public Mono<BoardListResponseDto> getList() {
-        return boardService.getAll()
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+        return boardService.getAll();
     }
 
     @PostMapping
-    public Mono<Boolean> saveOne(@RequestBody BoardSaveRequestDto request) {
-        return boardService.save(request)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+    public Mono<Boolean> save(@RequestBody BoardSaveRequestDto request) {
+        return boardService.save(request);
     }
 
     @DeleteMapping("/{boardId}")
     public Mono<Boolean> deleteOne(@PathVariable Long boardId) {
-        return boardService.deleteOne(boardId)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+        return boardService.deleteOne(boardId);
+    }
+
+    @GetMapping("/category/{categoryId}")
+    public Mono<BoardListResponseDto> getALlByCategory(@PathVariable Long categoryId) {
+        return boardService.getAllByCategoryId(categoryId);
     }
 }
