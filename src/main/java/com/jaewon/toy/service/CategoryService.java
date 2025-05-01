@@ -24,7 +24,7 @@ public class CategoryService {
 
     public Mono<Long> findByName(String category) {
         return categoryRepository.findIdByName(category)
-                .switchIfEmpty(Mono.error(new RuntimeException("해당 카테고리가 없음")))
+                .switchIfEmpty(Mono.error(new RuntimeException("해당 카테고리가 없습니다")))
                 .flatMap(Mono::just);
     }
 
