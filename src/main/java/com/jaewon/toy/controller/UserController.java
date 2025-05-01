@@ -19,21 +19,16 @@ public class UserController {
 
     @PostMapping
     public Mono<Boolean> newUser(@RequestBody UserSaveRequestDto request) {
-        return userService.save(request)
-                .doOnError(throwable -> log.error("failed to save user who email : {}. reason : ", request.getEmail(), throwable))
-                .onErrorReturn(false);
+        return userService.save(request);
     }
 
     @DeleteMapping("/{email}")
     public Mono<Boolean> delete(@PathVariable String email) {
-        return userDeleteService.deleteByEmail(email)
-                .doOnError(throwable -> log.error(String.valueOf(throwable)))
-                .onErrorReturn(false);
+        return userDeleteService.deleteByEmail(email);
     }
 
     @GetMapping("/all")
     public Mono<UserListResponseDto> getAll() {
-        return userService.getAll()
-                .doOnError(throwable -> log.error(String.valueOf(throwable)));
+        return userService.getAll();
     }
 }

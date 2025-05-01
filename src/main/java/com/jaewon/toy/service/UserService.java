@@ -6,22 +6,24 @@ import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.reactive.TransactionalOperator;
 import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @Service
 public class UserService {
     private final UserRepository userRepository;
+    private final TransactionalOperator operator;
 
     public Mono<Long> findByNickname(String nickname) {
         return userRepository.findIdByNickname(nickname)
-                .switchIfEmpty(Mono.error(new RuntimeException("해당 닉네임의 유저가 없음")))
+                .switchIfEmpty(Mono.error(new RuntimeException("해당 닉네임의 유저가 없습니다")))
                 .flatMap(Mono::just);
     }
 
     public Mono<Long> findByEmail(String email) {
         return userRepository.findIdByEmail(email)
-                .switchIfEmpty(Mono.error(new RuntimeException("해당 이메일의 유저가 없음")))
+                .switchIfEmpty(Mono.error(new RuntimeException("해당 이메일의 유저가 없습니다")))
                 .flatMap(Mono::just);
     }
 
@@ -33,12 +35,15 @@ public class UserService {
     public Mono<Boolean> save(UserSaveRequestDto request) {
         return userRepository.findIdByEmail(request.getEmail())
                 .flatMap(id -> Mono.error(new RuntimeException("이미 존재하는 이메일입니다")))
+                .switchIfEmpty(userRepository.findIdByNickname(request.getNickname()))
+                .flatMap(id -> Mono.error(new RuntimeException("이미 존재하는 닉네임입니다")))
                 .switchIfEmpty(userRepository.save(User.builder()
                                 .email(request.getEmail())
                                 .nickname(request.getNickname())
                                 .password(request.getPassword())
                                 .build()))
-                .thenReturn(true);
+                .thenReturn(true)
+                .as(operator::transactional);
     }
 
     public Mono<Boolean> deleteByUserId(long userId) {
