@@ -1,6 +1,8 @@
 package com.jaewon.toy.controller;
 
 import com.jaewon.toy.domain.user.dto.UserListResponseDto;
+import com.jaewon.toy.domain.user.dto.UserNicknameUpdateRequestDto;
+import com.jaewon.toy.domain.user.dto.UserPasswordUpdateRequestDto;
 import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.service.UserDeleteService;
 import com.jaewon.toy.service.UserService;
@@ -30,5 +32,15 @@ public class UserController {
     @GetMapping("/all")
     public Mono<UserListResponseDto> getAll() {
         return userService.getAll();
+    }
+
+    @PutMapping("/nickname")
+    public Mono<Boolean> updateNickname(@RequestBody UserNicknameUpdateRequestDto request) {
+        return userService.updateNickname(request);
+    }
+
+    @PutMapping("/password")
+    public Mono<Boolean> updatePassword(@RequestBody UserPasswordUpdateRequestDto request) {
+        return userService.updatePassword(request);
     }
 }

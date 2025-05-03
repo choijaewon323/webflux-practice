@@ -44,4 +44,21 @@ public class UserRepositoryCustomImpl implements UserRepositoryCustom {
                 .map(((row, rowMetadata) -> converter.read(Long.class, row, rowMetadata)))
                 .one();
     }
+
+    @Override
+    public Mono<Void> updateNickname(String before, String after) {
+        String sql = """
+                UPDATE
+                    users
+                SET
+                    nickname = :after
+                where
+                    nickname = :before
+                """;
+
+        return databaseClient.sql(sql)
+                .bind("after", after)
+                .bind("before", before)
+                .then();
+    }
 }

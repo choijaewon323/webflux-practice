@@ -2,6 +2,8 @@ package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.user.User;
 import com.jaewon.toy.domain.user.dto.UserListResponseDto;
+import com.jaewon.toy.domain.user.dto.UserNicknameUpdateRequestDto;
+import com.jaewon.toy.domain.user.dto.UserPasswordUpdateRequestDto;
 import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.repository.user.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -61,5 +63,24 @@ public class UserService {
                             .users(list)
                             .build();
                 });
+    }
+
+    public Mono<Boolean> updateNickname(UserNicknameUpdateRequestDto request) {
+        return userRepository.updateNickname(request.getBefore(), request.getAfter())
+                .thenReturn(true);
+    }
+
+    public Mono<Boolean> updatePassword(UserPasswordUpdateRequestDto request) {
+        return userRepository.findByEmail(request.getEmail())
+                .switchIfEmpty(Mono.error(new RuntimeException("해당 이메일의 유저가 없습니다")))
+                .flatMap(user -> {
+                    if (user.getPassword().equals(request.getOldPassword())) {
+                        return Mono.error(new RuntimeException("비밀번호가 다릅니다"));
+                    }
+                    user.updatePassword(request.getNewPassword());
+                    return userRepository.save(user);
+                })
+                .thenReturn(true)
+                .as(operator::transactional);
     }
 }
