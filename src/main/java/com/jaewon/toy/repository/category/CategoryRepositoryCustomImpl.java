@@ -17,7 +17,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
     public Flux<CategoryListResponseDto> getAll() {
         String sql = """
                 SELECT
-                    c.name AS categoryName,
+                    c.name AS category_name,
                     cnt AS count
                 FROM
                     categories AS c
@@ -28,6 +28,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
                                     boards AS b
                                 GROUP BY
                                     category_id) AS tmp
+                        ON tmp.category_id = c.id
                 """;
 
         return databaseClient.sql(sql)
