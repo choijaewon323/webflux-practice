@@ -18,10 +18,10 @@ public class ReplyService {
     private final UserService userService;
     private final TransactionalOperator operator;
 
-    public Mono<Boolean> save(long boardId, ReplySaveRequestDto request) {
+    public Mono<Boolean> save(ReplySaveRequestDto request) {
         return userService.findByNickname(request.getNickname())
                 .flatMap(userId -> replyRepository.save(Reply.builder()
-                        .boardId(boardId)
+                        .boardId(request.getBoardId())
                         .userId(userId)
                         .content(request.getContent())
                         .build()))

@@ -20,9 +20,9 @@ public class ReplyController {
     private final ReplyService replyService;
     private final LogService logService;
 
-    @PostMapping("/{boardId}")
-    public Mono<Boolean> save(@PathVariable Long boardId, @RequestBody ReplySaveRequestDto request) {
-        return replyService.save(boardId, request)
+    @PostMapping
+    public Mono<Boolean> save(@RequestBody ReplySaveRequestDto request) {
+        return replyService.save(request)
                 .doOnError(logService::saveError)
                 .onErrorReturn(false);
     }
