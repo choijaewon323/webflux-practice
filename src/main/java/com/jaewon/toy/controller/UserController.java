@@ -1,6 +1,7 @@
 package com.jaewon.toy.controller;
 
 import com.jaewon.toy.domain.user.dto.LoginRequestDto;
+import com.jaewon.toy.domain.user.dto.LoginResponseDto;
 import com.jaewon.toy.domain.user.dto.UserListResponseDto;
 import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.service.LogService;
@@ -21,10 +22,12 @@ public class UserController {
     private final LogService logService;
 
     @PostMapping("/login")
-    public Mono<Boolean> login(@RequestBody LoginRequestDto request) {
+    public Mono<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
         return userService.login(request)
                 .doOnError(logService::saveError)
-                .onErrorReturn(false);
+                .onErrorReturn(LoginResponseDto.builder()
+                        .isSuccess(false)
+                        .build());
     }
 
     @PostMapping

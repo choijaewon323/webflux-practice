@@ -2,6 +2,7 @@ package com.jaewon.toy.service;
 
 import com.jaewon.toy.domain.user.User;
 import com.jaewon.toy.domain.user.dto.LoginRequestDto;
+import com.jaewon.toy.domain.user.dto.LoginResponseDto;
 import com.jaewon.toy.domain.user.dto.UserListResponseDto;
 import com.jaewon.toy.domain.user.dto.UserSaveRequestDto;
 import com.jaewon.toy.repository.user.UserRepository;
@@ -64,14 +65,19 @@ public class UserService {
                 });
     }
 
-    public Mono<Boolean> login(LoginRequestDto request) {
+    public Mono<LoginResponseDto> login(LoginRequestDto request) {
         return userRepository.findByEmail(request.getEmail())
                 .switchIfEmpty(Mono.error(new RuntimeException("해당 이메일의 유저가 없습니다")))
                 .flatMap(user -> {
                     if (!user.getPassword().equals(request.getPassword())) {
                         return Mono.error(new RuntimeException("비밀번호가 다릅니다"));
                     }
-                    return Mono.just(true);
+
+                    return Mono.just(LoginResponseDto.builder()
+                            .isSuccess(true)
+                            .email(user.getEmail())
+                            .nickname(user.getNickname())
+                            .build());
                 })
                 .as(operator::transactional);
     }
