@@ -70,6 +70,7 @@ public class BoardService {
                                                 .createdAt(board.getCreatedAt())
                                                 .title(board.getTitle())
                                                 .category(category)
+                                                .cnt(board.getCnt())
                                                 .build();
                                         board.increaseCnt();
                                         return boardRepository.save(board)
