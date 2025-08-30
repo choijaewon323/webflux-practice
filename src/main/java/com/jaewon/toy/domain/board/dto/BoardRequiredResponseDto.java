@@ -15,6 +15,7 @@ public class BoardRequiredResponseDto {
     private String category;
     private String title;
     private String writer;
+    private String content;
     private long likeCount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;

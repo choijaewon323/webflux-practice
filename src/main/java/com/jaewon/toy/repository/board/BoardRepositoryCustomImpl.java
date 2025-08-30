@@ -20,6 +20,7 @@ public class BoardRepositoryCustomImpl implements BoardRepositoryCustom {
                     b.id AS id,
                     c.name AS category,
                     title,
+                    content,
                     nickname as writer,
                     b.created_at as created_at,
                     updated_at,
