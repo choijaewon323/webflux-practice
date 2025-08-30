@@ -28,7 +28,7 @@ public class CategoryRepositoryCustomImpl implements CategoryRepositoryCustom {
                                     boards AS b
                                 GROUP BY
                                     category_id) AS tmp
-                        ON tmp.category_id = c.id
+                        ON c.id = tmp.category_id
                 """;
 
         return databaseClient.sql(sql)
