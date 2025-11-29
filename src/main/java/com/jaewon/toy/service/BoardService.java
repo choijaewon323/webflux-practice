@@ -70,6 +70,7 @@ public class BoardService {
                                                 .createdAt(board.getCreatedAt())
                                                 .title(board.getTitle())
                                                 .category(category)
+                                                .cnt(board.getCnt())
                                                 .build();
                                         board.increaseCnt();
                                         return boardRepository.save(board)
@@ -82,6 +83,24 @@ public class BoardService {
     public Mono<BoardListResponseDto> getAll() {
         return boardRepository.findAllByRequiredColumn()
                 .collectList()
+                .map(list -> {
+                    list.stream()
+                            .filter(board -> {
+                                if (board.getContent().length() > 50) {
+                                    return true;
+                                }
+                                return false;
+                            })
+                            .map(board -> {
+                                String longContent = board.getContent();
+                                StringBuilder sb = new StringBuilder();
+                                sb.append(longContent.substring(0, 50));
+                                sb.append("...");
+                                board.setContent(sb.toString());
+                                return board;
+                            });
+                    return list;
+                })
                 .map(list -> BoardListResponseDto.builder()
                         .count(list.size())
                         .boardList(list)

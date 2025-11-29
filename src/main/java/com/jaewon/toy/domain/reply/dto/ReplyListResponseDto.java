@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain.board.dto;
+package com.jaewon.toy.domain.reply.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
@@ -10,13 +10,10 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BoardRequiredResponseDto {
+public class ReplyListResponseDto {
     private long id;
-    private String category;
-    private String title;
     private String writer;
     private String content;
-    private long likeCount;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime createdAt;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
