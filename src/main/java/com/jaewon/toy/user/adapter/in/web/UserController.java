@@ -1,7 +1,9 @@
-package com.jaewon.toy.adapter.in.web;
+package com.jaewon.toy.user.adapter.in.web;
 
-import com.jaewon.toy.user.domain.dto.LoginRequestDto;
-import com.jaewon.toy.user.domain.dto.LoginResponseDto;
+import com.jaewon.toy.user.application.port.in.CreateUserUseCase;
+import com.jaewon.toy.user.application.port.in.LoginUseCase;
+import com.jaewon.toy.user.adapter.in.web.dto.LoginRequestDto;
+import com.jaewon.toy.user.adapter.in.web.dto.LoginResponseDto;
 import com.jaewon.toy.user.domain.dto.UserListResponseDto;
 import com.jaewon.toy.user.domain.dto.UserSaveRequestDto;
 import com.jaewon.toy.application.service.LogService;
@@ -20,19 +22,22 @@ public class UserController {
     private final UserService userService;
     private final UserDeleteService userDeleteService;
     private final LogService logService;
+    private final LoginUseCase loginUseCase;
+    private final CreateUserUseCase createUserUseCase;
 
     @PostMapping("/login")
     public Mono<LoginResponseDto> login(@RequestBody LoginRequestDto request) {
-        return userService.login(request)
-                .doOnError(logService::saveError)
-                .onErrorReturn(LoginResponseDto.builder()
-                        .isSuccess(false)
-                        .build());
+        request.validate();
+
+        return loginUseCase.login(request.getEmail(), request.getPassword())
+                .map(result -> new LoginResponseDto(result, request.getEmail(), request.getPassword()));
     }
 
     @PostMapping
     public Mono<Boolean> newUser(@RequestBody UserSaveRequestDto request) {
-        return userService.save(request)
+        request.validate();
+
+        return createUserUseCase.create(request.getEmail(), request.getPassword(), request.getNickname())
                 .doOnError(logService::saveError)
                 .onErrorReturn(false);
     }

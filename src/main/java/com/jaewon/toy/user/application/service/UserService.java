@@ -1,8 +1,13 @@
 package com.jaewon.toy.user.application.service;
 
 import com.jaewon.toy.user.adapter.out.persistence.UserJpaEntity;
-import com.jaewon.toy.user.domain.dto.LoginRequestDto;
-import com.jaewon.toy.user.domain.dto.LoginResponseDto;
+import com.jaewon.toy.user.application.port.in.CreateUserUseCase;
+import com.jaewon.toy.user.application.port.in.LoginUseCase;
+import com.jaewon.toy.user.application.port.out.GetUserPort;
+import com.jaewon.toy.user.application.port.out.CreateUserPort;
+import com.jaewon.toy.user.domain.User;
+import com.jaewon.toy.user.adapter.in.web.dto.LoginRequestDto;
+import com.jaewon.toy.user.adapter.in.web.dto.LoginResponseDto;
 import com.jaewon.toy.user.domain.dto.UserListResponseDto;
 import com.jaewon.toy.user.domain.dto.UserSaveRequestDto;
 import com.jaewon.toy.user.adapter.out.persistence.UserRepository;
@@ -13,9 +18,37 @@ import reactor.core.publisher.Mono;
 
 @RequiredArgsConstructor
 @Service
-public class UserService {
+public class UserService implements LoginUseCase, CreateUserUseCase {
     private final UserRepository userRepository;
     private final TransactionalOperator operator;
+    private final GetUserPort getUserPort;
+    private final CreateUserPort createUserPort;
+
+    @Override
+    public Mono<Boolean> login(String email, String password) {
+        return getUserPort.getUserByEmail(email)
+                .flatMap(user -> {
+                    if (user.isPasswordCorrect(password)) {
+                        return Mono.just(true);
+                    }
+
+                    return Mono.empty();
+                })
+                .defaultIfEmpty(false);
+    }
+
+    @Override
+    public Mono<Boolean> create(String email, String password, String nickname) {
+        return getUserPort.getUserByEmail(email)
+                .flatMap(user -> Mono.error(new IllegalArgumentException("user already exists")))
+                .switchIfEmpty(Mono.defer(() -> {
+                    User user = User.newUser(email, password, nickname);
+
+                    return createUserPort.save(user);
+                }))
+                .thenReturn(true)
+                .onErrorReturn(false);
+    }
 
     public Mono<Long> findByNickname(String nickname) {
         return userRepository.findIdByNickname(nickname)

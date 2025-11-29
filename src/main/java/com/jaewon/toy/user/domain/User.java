@@ -38,6 +38,10 @@ public class User {
         );
     }
 
+    public boolean isPasswordCorrect(String compare) {
+        return password.equals(compare);
+    }
+
     public void updateNickname(String newNickname) {
         checkNicknameUnder20(newNickname);
 
