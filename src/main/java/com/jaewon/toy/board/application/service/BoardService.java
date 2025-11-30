@@ -2,11 +2,10 @@ package com.jaewon.toy.board.application.service;
 
 import com.jaewon.toy.board.application.port.in.CreateBoardUseCase;
 import com.jaewon.toy.board.application.port.in.DeleteBoardUseCase;
+import com.jaewon.toy.board.application.port.in.dto.CreateBoardCommand;
 import com.jaewon.toy.board.application.port.out.CreateBoardPort;
 import com.jaewon.toy.board.application.port.out.DeleteBoardPort;
 import com.jaewon.toy.board.domain.Board;
-import com.jaewon.toy.board.application.port.in.dto.CreateBoardCommand;
-import com.jaewon.toy.board.adapter.out.persistence.BoardRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -16,7 +15,6 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @Service
 public class BoardService implements CreateBoardUseCase, DeleteBoardUseCase {
-    private final BoardRepository boardRepository;
     private final CreateBoardPort createBoardPort;
     private final DeleteBoardPort deleteBoardPort;
 
@@ -36,10 +34,5 @@ public class BoardService implements CreateBoardUseCase, DeleteBoardUseCase {
         return deleteBoardPort.delete(boardId)
                 .thenReturn(true)
                 .onErrorReturn(false);
-    }
-
-    public Mono<Boolean> deleteByUserId(long userId) {
-        return boardRepository.deleteByUserId(userId)
-                .thenReturn(true);
     }
 }

@@ -1,4 +1,4 @@
-package com.jaewon.toy.domain.reply;
+package com.jaewon.toy.reply.adapter.out.persistence;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table("replies")
-public class Reply {
+public class ReplyJpaEntity {
     @Id
     private long id;
     private long userId;
@@ -26,7 +26,7 @@ public class Reply {
     private LocalDateTime updatedAt;
 
     @Builder
-    public Reply(long userId, long boardId, String content) {
+    public ReplyJpaEntity(long userId, long boardId, String content) {
         this.userId = userId;
         this.boardId = boardId;
         this.content = content;

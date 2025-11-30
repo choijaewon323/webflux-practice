@@ -2,7 +2,6 @@ package com.jaewon.toy.board.adapter.in.web;
 
 import com.jaewon.toy.board.application.port.in.BoardQuery;
 import com.jaewon.toy.board.application.port.in.dto.BoardMinimumFieldResponse;
-import com.jaewon.toy.application.service.LogService;
 import com.jaewon.toy.board.adapter.in.web.dto.BoardDetailResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -14,7 +13,6 @@ import reactor.core.publisher.Mono;
 @RestController
 @RequestMapping("/api/v1/search")
 public class BoardSearchController {
-    private final LogService logService;
     private final BoardQuery boardQuery;
 
     @GetMapping
@@ -27,8 +25,7 @@ public class BoardSearchController {
             results = boardQuery.getBoardsKeywordContains(keyword);
         }
 
-        return results
-                .doOnError(logService::saveError);
+        return results;
     }
 
     @GetMapping("/{boardId}")

@@ -32,7 +32,7 @@ public class BoardSearchService implements BoardQuery {
                         board.getCreatedDate()
                 ))
                 .collectList()
-                .map(list -> new BoardMinimumFieldResponse(list));
+                .map(BoardMinimumFieldResponse::new);
     }
 
     @Override
@@ -48,7 +48,7 @@ public class BoardSearchService implements BoardQuery {
                         board.getCreatedDate()
                 ))
                 .collectList()
-                .map(list -> new BoardMinimumFieldResponse(list));
+                .map(BoardMinimumFieldResponse::new);
     }
 
     @Override
@@ -69,6 +69,6 @@ public class BoardSearchService implements BoardQuery {
                         board.getCreatedDate()
                 ))
                 .collectList()
-                .map(list -> new BoardMinimumFieldResponse(list));
+                .map(BoardMinimumFieldResponse::new);
     }
 }

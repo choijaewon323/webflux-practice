@@ -1,4 +1,4 @@
-package com.jaewon.toy.user.domain.dto;
+package com.jaewon.toy.user.adapter.in.web.dto;
 
 import com.jaewon.toy.util.ValidationUtil;
 import lombok.Getter;

@@ -4,4 +4,5 @@ import reactor.core.publisher.Mono;
 
 public interface DeleteBoardPort {
     Mono<Void> delete(Long boardId);
+    Mono<Void> deleteByUserId(long userId);
 }

@@ -7,11 +7,11 @@ import java.time.LocalDateTime;
 
 @Getter
 public class User {
-    private Long id;
+    private final Long id;
     private String nickname;
-    private String email;
+    private final String email;
     private String password;
-    private LocalDateTime createdAt;
+    private final LocalDateTime createdAt;
 
     private User(Long id,
                 String nickname,

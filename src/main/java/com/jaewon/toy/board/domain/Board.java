@@ -1,19 +1,20 @@
 package com.jaewon.toy.board.domain;
 
 import com.jaewon.toy.board.application.port.in.dto.CreateBoardCommand;
+import com.jaewon.toy.util.ValidationUtil;
 import lombok.Getter;
 
 import java.time.LocalDateTime;
 
 @Getter
 public class Board {
-    private Long id;
+    private final Long id;
     private String title;
     private String content;
-    private Long userId;
+    private final Long userId;
     private Long categoryId;
     private long cnt;
-    private LocalDateTime createdDate;
+    private final LocalDateTime createdDate;
 
     public Board(Long id,
                  String title,
@@ -28,9 +29,10 @@ public class Board {
         this.userId = userId;
         this.categoryId = categoryId;
         this.cnt = cnt;
+        this.createdDate = createdDate;
 
         checkTitleUnder200(title);
-        checkContentIsEmpty(content);
+        ValidationUtil.checkStringEmpty("content", content);
     }
 
     public static Board newBoard(CreateBoardCommand command) {
@@ -45,6 +47,23 @@ public class Board {
         );
     }
 
+    public void updateTitle(String title) {
+        ValidationUtil.checkStringEmpty("title", title);
+        checkTitleUnder200(title);
+
+        this.title = title;
+    }
+
+    public void updateContent(String content) {
+        ValidationUtil.checkStringEmpty("content", content);
+
+        this.content = content;
+    }
+
+    public void changeCategory(long categoryId) {
+        this.categoryId = categoryId;
+    }
+
     public String getContentToDescription() {
         return content.substring(0, 50);
     }
@@ -52,12 +71,6 @@ public class Board {
     private void checkTitleUnder200(String title) {
         if (title.length() > 200) {
             throw new IllegalArgumentException("title cannot over 200 length");
-        }
-    }
-
-    private void checkContentIsEmpty(String content) {
-        if (content == null || content.isBlank()) {
-            throw new IllegalArgumentException("content cannot empty");
         }
     }
 

@@ -1,6 +1,6 @@
-package com.jaewon.toy.adapter.out.persistence.reply;
+package com.jaewon.toy.reply.adapter.out.persistence;
 
-import com.jaewon.toy.domain.reply.dto.ReplyListResponseDto;
+import com.jaewon.toy.reply.adapter.in.web.dto.ReplyListResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.r2dbc.convert.MappingR2dbcConverter;
 import org.springframework.r2dbc.core.DatabaseClient;
